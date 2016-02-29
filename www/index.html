@@ -35,10 +35,33 @@
             <div id="deviceready" class="blink">
                 <p class="event listening">André Safadão</p>
                 <p class="event received">Tá tranquilo!</p>
+                <a href="#" id="MostraMensagem" data-mensagem="sucesso">Mostra Mensagem</a>
+                <a href="#" id="MostraMensagem" data-mensagem="erro">Mostra Mensagem 2</a>
+                <div class="conteudo_php">
+
+                </div>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script>
+         $(document).ready(function(){
+            $('#MostraMensagem').click(function(){
+               var tipoMensagem = $(this).data('mensagem');
+               $.ajax({
+                  type: "POST",
+                  url: "http://dgrafo.com/teste/phonegap/mensagem.php",
+                  data: {
+                     acao: tipoMensagem,
+                  },
+      				success: function( data ){
+      					$('.conteudo_php').html(data);
+      				},
+               });
+               return false;
+            });
+         });
+        </script>
         <script type="text/javascript">
             app.initialize();
         </script>
